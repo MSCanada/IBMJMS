@@ -1,0 +1,64 @@
+# ----------------------------------------------------------------
+# jmsdemoJNDIclient.scp
+#
+# JNDI entries for Developerworks article
+# "Developing a Standalone Java Application for WebSphere MQ v6.0"
+#
+# Note that cf QMGR parm contains a blank string.  This allows us
+# to connect to the default QMgr locally or any QMgr we can get to
+# via client bindings without worrying about the name of the QMgr.
+# In the real world we usually want to specify a QMgr name here as
+# a safety measure.
+#
+# This version uses client mode transport.
+# For bindings mode transport, see jmsdemoJNDIbindings.scp
+#
+# You may need to change the HOST, CHAN and PORT values to 
+# something more appropriate for your setup.
+#
+#-----------------------------------------------------------------
+
+#-----------------------------------------------------------------
+# Connection Factory for Client mode
+# Delete the Connection Factory if it exists
+DELETE  CF(JMSDEMOCF)
+
+# Define the Connection Factory
+DEFINE  CF(JMSDEMOCF) +
+        SYNCPOINTALLGETS(YES) +
+        TRAN(client) +
+        HOST(localhost) CHAN(SYSTEM.DEF.SVRCONN) PORT(1414) +
+        QMGR( )
+
+# Display the resulting definition
+DISPLAY CF(JMSDEMOCF)
+
+
+
+#-----------------------------------------------------------------
+# Queue Object
+# Delete the Queue if it exists
+DELETE  Q(JMSDEMOQueue)
+
+# Define the Queue
+DEFINE  Q(JMSDEMOQueue) QUEUE(JMSDEMO.QL)
+
+# Display the resulting Queue definition
+DISPLAY Q(JMSDEMOQueue)
+
+
+
+#-----------------------------------------------------------------
+# Topic Object
+# Delete the Topic if it exists
+DELETE  T(JMSDEMOTopic)
+
+# Define the Topic
+DEFINE  T(JMSDEMOTopic) TOPIC(JMSDEMOtopic)
+
+# Display the resulting Topic definition
+DISPLAY T(JMSDEMOTopic)
+#-----------------------------------------------------------------
+# E N D   O F   J N D I   D E F I N I T I O N S
+#-----------------------------------------------------------------
+end
